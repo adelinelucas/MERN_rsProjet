@@ -1,8 +1,8 @@
-const jwt = require('jsonwebtoken');
-const UserModel = require('../models/user.model');
+import jwt from 'jsonwebtoken';
+import UserModel from '../models/user.model.js';
 
 // tester sur l'utilisateur est connecté à chaque étape de navigation du site
-module.exports.checkUser = (req, res, next) =>{
+export const checkUser = (req, res, next) =>{
     const token = req.cookies.jwt; 
     if(token) {
         jwt.verify(token, process.env.TOKEN_SECRET, async (err, decodedToken) => {
@@ -24,7 +24,7 @@ module.exports.checkUser = (req, res, next) =>{
     }
 }
 
-module.exports.requireAuth = (req, res, next) =>{
+export const requireAuth = (req, res, next) =>{
     const token = req.cookies.jwt; 
     if(token) {
         jwt.verify(token, process.env.TOKEN_SECRET, async (err, decodedToken) => {

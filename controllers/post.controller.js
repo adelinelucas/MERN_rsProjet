@@ -1,19 +1,21 @@
-const PostModel = require('../models/post.model');
-const UserModel = require("../models/user.model");
-const fs = require("fs");
-const { promisify } = require("util");
-const { uploadError } = require("../utils/errors.utils");
-const pipeline = promisify(require("stream").pipeline);
-const ObjectID= require('mongoose').Types.ObjectId;
+import * as PostModel from '../models/post.model.js';
+import * as UserModel from "../models/user.model.js";
+import fs from "fs";
+import { promisify } from "util";
+import { uploadError } from "../utils/errors.utils.js";
+import stream from "stream"
+const pipeline = promisify(stream.pipeline);
+import mongoose from 'mongoose';
+const ObjectID = mongoose.Types.ObjectId;
 
-module.exports.readPost = (req, res) =>{
+export const readPost = (req, res) =>{
     PostModel.find((err, docs)=>{
         if(!err) res.send(docs);
         else console.log('Error to get data :' + err);
     }).sort({ createdAt: -1 });
 }
 
-module.exports.createPost = async (req, res) =>{
+export const createPost = async (req, res) =>{
     let fileName;
 
     if(req.file !== null){
@@ -58,7 +60,7 @@ module.exports.createPost = async (req, res) =>{
     }
 }
 
-module.exports.updatePost = (req, res) =>{
+export const updatePost = (req, res) =>{
     if(!ObjectID.isValid(req.params.id))
     return res.status(400).send('ID unknown : ' + req.params.id);
 
@@ -77,7 +79,7 @@ module.exports.updatePost = (req, res) =>{
     )
 }
 
-module.exports.deletePost = (req, res) =>{
+export const deletePost = (req, res) =>{
     if(!ObjectID.isValid(req.params.id))
     return res.status(400).send('ID unknown : ' + req.params.id);
 
@@ -90,7 +92,7 @@ module.exports.deletePost = (req, res) =>{
     )
 }
 
-module.exports.likePost = async (req, res) => {
+export const likePost = async (req, res) => {
     if(!ObjectID.isValid(req.params.id))
     return res.status(400).send('ID unknown : ' + req.params.id);
 
@@ -121,7 +123,7 @@ module.exports.likePost = async (req, res) => {
     }
 }
 
-module.exports.unlikePost = async (req, res) => {
+export const unlikePost = async (req, res) => {
     if(!ObjectID.isValid(req.params.id))
     return res.status(400).send('ID unknown : ' + req.params.id);
 
@@ -146,7 +148,7 @@ module.exports.unlikePost = async (req, res) => {
 
 }
 
-module.exports.commentPost = (req,res) =>{
+export const commentPost = (req,res) =>{
     if(!ObjectID.isValid(req.params.id))
     return res.status(400).send('ID unknown : ' + req.params.id);
 
@@ -172,7 +174,7 @@ module.exports.commentPost = (req,res) =>{
     }
 }
 
-module.exports.editCommentPost = (req,res ) =>{
+export const editCommentPost = (req,res ) =>{
     if(!ObjectID.isValid(req.params.id))
     return res.status(400).send('ID unknown : ' + req.params.id);
 
@@ -198,7 +200,7 @@ module.exports.editCommentPost = (req,res ) =>{
     }
 }
 
-module.exports.deleteCommentPost = (req,res ) =>{
+export const deleteCommentPost = (req,res ) =>{
     if(!ObjectID.isValid(req.params.id))
     return res.status(400).send('ID unknown : ' + req.params.id);
 

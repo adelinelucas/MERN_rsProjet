@@ -1,13 +1,14 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
-const userRoutes = require('./routes/user.routes');
-const postRoutes = require('./routes/post.routes');
-require('dotenv').config({path:'./config/.env'});
+import express from "express";
+import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
+import * as userRoutes from './routes/user.routes.js';
+import * as postRoutes from './routes/post.routes.js';
+import dotenv from 'dotenv'; 
+dotenv.config({path:'./config/.env.'});
 const port = 5000;
-require('./config/db');
-const {checkUser, requireAuth} = require('./middleware/auth.middleware');
-const cors = require('cors');
+import './config/db.js';
+import {checkUser, requireAuth} from './middleware/auth.middleware.js';
+import cors from 'cors';
 
 const app = express();
 

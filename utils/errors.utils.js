@@ -1,4 +1,4 @@
-module.exports.signUpErrors = (error) => {
+export const signUpErrors = (error) => {
     let errors = {pseudo: '', email:'', password:''}
     if(error.message.includes('pseudo'))
         errors.pseudo = "Pseudo incorrect ou déjà utilisé";
@@ -18,7 +18,7 @@ module.exports.signUpErrors = (error) => {
     return errors;
 } 
 
-module.exports.signInErrors = (err) => {
+export const signInErrors = (err) => {
     let errors = { email:'', password:''}
   
     console.log(err);
@@ -31,7 +31,7 @@ module.exports.signInErrors = (err) => {
     return errors;
 }
 
-module.exports.uploadError = (err) => {
+export const uploadError = (err) => {
     let errors = {format: '', maxSize: ''}
 
     if(err.message.includes('invalid file'))

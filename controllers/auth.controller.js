@@ -1,9 +1,9 @@
 // pour l'inscription // connexion et déconnection de l'utilisateur 
 
-const UserModel = require('../models/user.model');
+import UserModel from '../models/user.model.js';
 // on a chargé la librairie JSON WEB Token qui va nous permettre de gérer la sécurité de la connection à notre application 
-const jwt = require('jsonwebtoken');
-const { signUpErrors, signInErrors } = require('../utils/errors.utils');
+import jwt from 'jsonwebtoken';
+import { signUpErrors, signInErrors } from '../utils/errors.utils.js';
 const maxAge = 3 * 21 * 60 * 60 * 1000 ;
 
 const createToken = (id) =>{
@@ -12,7 +12,7 @@ const createToken = (id) =>{
     })
 };
 
-module.exports.signUp = async (req, res) => {
+export const signUp = async (req, res) => {
     console.log(req.body);
     const {pseudo, email, password} = req.body
 
@@ -27,7 +27,7 @@ module.exports.signUp = async (req, res) => {
 } 
 
 
-module.exports.signIn = async (req, res) => {
+export const signIn = async (req, res) => {
     const {email, password} = req.body;
     console.log(req.body);
     try {
@@ -42,7 +42,7 @@ module.exports.signIn = async (req, res) => {
     }
 }
 
-module.exports.logout = async (req, res) => {
+export const logout = async (req, res) => {
     // au moment du logout on supprome au bout d'1 miliseconde
     res.cookie('jwt', '', {maxAge : 1}); 
     res.redirect('/');

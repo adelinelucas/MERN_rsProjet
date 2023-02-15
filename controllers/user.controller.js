@@ -1,14 +1,14 @@
-const UserModel = require('../models/user.model');
+import UserModel from '../models/user.model.js';
+import mongoose from 'mongoose';
+const ObjectID = mongoose.Types.ObjectId;
 
-const ObjectID = require('mongoose').Types.ObjectId;
-
-module.exports.getAllUsers = async (req, res) => {
+export const getAllUsers = async (req, res) => {
     const users = await UserModel.find().select('-password');
     res.status(200).json(users);
 }
 //select('-password') permet de sélectionner toutes les infos sauf celles que l'on ne veut pas 
 
-module.exports.userInfo = (req, res) => {
+export const userInfo = (req, res) => {
     console.log(req.params);
 // on test si l'id passé en param est présent dans la bdd
     if(!ObjectID.isValid(req.params.id))
@@ -20,7 +20,7 @@ module.exports.userInfo = (req, res) => {
     }).select('-password');
 }
 
-module.exports.updateUser = async (req, res) => {
+export const updateUser = async (req, res) => {
     if(!ObjectID.isValid(req.params.id))
         return res.status(400).send('ID inconnu : ' + req.params.id);
 
@@ -41,7 +41,7 @@ module.exports.updateUser = async (req, res) => {
 
 }
 
-module.exports.deleteUser = async(req, res) => {
+export const deleteUser = async(req, res) => {
     if(!ObjectID.isValid(req.params.id))
         return res.status(400).send('ID inconnu : ' + req.params.id);
 
@@ -53,7 +53,7 @@ module.exports.deleteUser = async(req, res) => {
     }
 }
 
-module.exports.follow = async (req, res) => {
+export const follow = async (req, res) => {
     if (
       !ObjectID.isValid(req.params.id) ||
       !ObjectID.isValid(req.body.idToFollow)
@@ -81,7 +81,7 @@ module.exports.follow = async (req, res) => {
     }
 };
 
-module.exports.unfollow = async (req, res) => {
+export const unfollow = async (req, res) => {
     if (
       !ObjectID.isValid(req.params.id) ||
       !ObjectID.isValid(req.body.idToUnfollow)

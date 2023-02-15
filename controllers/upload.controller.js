@@ -1,10 +1,11 @@
-const UserModel = require("../models/user.model");
-const fs = require("fs");
-const { promisify } = require("util");
-const { uploadError } = require("../utils/errors.utils");
-const pipeline = promisify(require("stream").pipeline);
+import UserModel from "../models/user.model.js";
+import fs from "fs";
+import { promisify } from "util";
+import { uploadError } from "../utils/errors.utils.js";
+import stream from "stream"
+const pipeline = promisify(stream.pipeline);
 
-module.exports.uploadProfil = async (req, res) => {
+export const uploadProfil = async (req, res) => {
     try {
         if (
             req.file.detectedMimeType  != "image/jpg" 

@@ -1,6 +1,7 @@
-const router = require('express').Router();
-const postController = require('../controllers/post.controller');
-const multer = require('multer');
+import express from 'express';
+const router = express.Router()
+import * as postController from '../controllers/post.controller.js';
+import multer from 'multer';
 const upload = multer();
 
 // gestion du crud pour les posts
@@ -18,4 +19,4 @@ router.patch('/comment-post/:id', postController.commentPost);
 router.patch('/edit-comment-post/:id', postController.editCommentPost);
 router.patch('/delete-post/:id', postController.deleteCommentPost)
 
-module.exports = router;
+export default router;
